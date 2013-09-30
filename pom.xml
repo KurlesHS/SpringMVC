@@ -89,7 +89,7 @@
                     <target>1.6</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
-                <version>2.0.2</version>
+                <version>3.1</version>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
