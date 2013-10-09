@@ -3,6 +3,8 @@ package com.springapp.orm;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,12 +24,19 @@ public class User {
     @Column(name = "USER_NAME")
     private String userName;
 
-    public String getUserId() {
-        return userId;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private Collection<PhoneNumber> listOfPhoneNumbers = new ArrayList<PhoneNumber>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private Collection<EMail> listOfEmails = new ArrayList<EMail>();
+
+    public Collection<EMail> getListOfEmails() {
+        return listOfEmails;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+
+    public Collection<PhoneNumber> getListOfPhoneNumbers() {
+        return listOfPhoneNumbers;
     }
 
     public String getUserName() {
