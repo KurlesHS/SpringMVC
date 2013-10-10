@@ -17,7 +17,8 @@ http://www.springframework.org/schema/context/spring-context-3.1.xsd
 http://www.springframework.org/schema/tx
  
  
-http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+        default-autowire="byName">
 
     <!-- we can use annotations -->
     <context:annotation-config />
@@ -43,6 +44,8 @@ http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
         <property name="annotatedClasses" >
             <list>
                 <value>com.springapp.orm.User</value>
+                <value>com.springapp.orm.PhoneNumber</value>
+                <value>com.springapp.orm.EMail</value>
             </list>
         </property>
         <property name="hibernateProperties">
