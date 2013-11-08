@@ -1,4 +1,4 @@
-package com.springapp.orm;
+package com.springapp.orm.abonents;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
@@ -28,9 +28,9 @@ public class EMail {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "ABONENT_ID")
     @NotFound(action = NotFoundAction.IGNORE)
-    private User user;
+    private Abonent abonent;
 
     public String getId() {
         return id;
@@ -56,11 +56,11 @@ public class EMail {
         this.description = description;
     }
 
-    public User getUser() {
-        return user;
+    public Abonent getAbonent() {
+        return abonent;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAbonent(Abonent abonent) {
+        this.abonent = abonent;
     }
 }

@@ -1,11 +1,12 @@
 package com.springapp.mvc;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
-import com.springapp.orm.EMail;
-import com.springapp.orm.PhoneNumber;
-import com.springapp.orm.User;
+import com.springapp.orm.abonents.Abonent;
+import com.springapp.orm.abonents.EMail;
+import com.springapp.orm.abonents.PhoneNumber;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/persistence-beans.xml")
@@ -35,8 +38,8 @@ public class HibernateConfigurationTests extends AbstractJUnit4SpringContextTest
             Session session = sessionFactory.openSession();
             session.beginTransaction();
 
-            User user = new User();
-            user.setUserName("User Name");
+            Abonent abonent = new Abonent();
+            abonent.setAbonentName("User Name");
 
             PhoneNumber number1 = new PhoneNumber();
             number1.setDescription("decr1");
@@ -46,8 +49,8 @@ public class HibernateConfigurationTests extends AbstractJUnit4SpringContextTest
             number2.setDescription("descr2");
             number2.setNumber("9876");
 
-            user.getListOfPhoneNumbers().add(number1);
-            user.getListOfPhoneNumbers().add(number2);
+            abonent.getListOfPhoneNumbers().add(number1);
+            abonent.getListOfPhoneNumbers().add(number2);
 
             EMail eMail1 = new EMail();
             eMail1.setEmailAddress("ka@mail.com");
@@ -58,12 +61,22 @@ public class HibernateConfigurationTests extends AbstractJUnit4SpringContextTest
             eMail2.setEmailAddress("ka2@mail.com");
             eMail2.setDescription("descr2");
 
-            user.getListOfEmails().add(eMail1);
-            user.getListOfEmails().add(eMail2);
+            abonent.getListOfEmails().add(eMail1);
+            abonent.getListOfEmails().add(eMail2);
 
-            session.persist(user);
+            session.persist(abonent);
+
+            //assertEquals("User Name", eMail2.getAbonent().getAbonentName());
 
             session.getTransaction().commit();
+
+            session.getTransaction().begin();
+
+            List<EMail> eMailList;
+            eMailList = session.createCriteria(EMail.class).list();
+            assertEquals(2, eMailList.size());
+            assertNotNull(eMailList.get(0).getAbonent());
+            assertEquals("User Name", eMailList.get(0).getAbonent().getAbonentName());
             session.close();
         }  catch (Exception ex) {
             assertTrue(false);

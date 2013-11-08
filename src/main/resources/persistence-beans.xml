@@ -43,9 +43,9 @@ http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses" >
             <list>
-                <value>com.springapp.orm.User</value>
-                <value>com.springapp.orm.PhoneNumber</value>
-                <value>com.springapp.orm.EMail</value>
+                <value>com.springapp.orm.abonents.Abonent</value>
+                <value>com.springapp.orm.abonents.PhoneNumber</value>
+                <value>com.springapp.orm.abonents.EMail</value>
             </list>
         </property>
         <property name="hibernateProperties">
